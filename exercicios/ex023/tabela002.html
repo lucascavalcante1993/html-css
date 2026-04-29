@@ -18,7 +18,15 @@
     padding: 10px;
     }
 
-    thead{
+    caption{
+      font-size: 1.5em;
+      font-weight: bold;
+      padding: 10px;
+      background-color: lightgray;
+    }
+
+
+    thead, tfoot{
       background-color: gray;
       color: white;
     }
@@ -31,8 +39,9 @@
 <body>
   <h1>Uso de tabelas grandes</h1>
     <!--
-  <table>ANATOMIA PARA TABELAS GRANDES
+      ANATOMIA PARA TABELAS GRANDES
     TABLE 
+      CAPTION (Legenda da tabela)
       THEAD (Cabeçalho da tabela)
          TR (Linha da tabela)
           TD (Dados da tabela)
@@ -47,12 +56,20 @@
           TH (Cabeçalho da tabela)
      -->
    <table>
+     <caption>População das Unidades Federativas do Brasil</caption>
     <thead>
       <tr>
-        <th>Estado</th>
-        <th class="num">População</th>
+        <th scope="col">Estado</th>
+        <th scope="col" style="width: 50px;">População</th>
       </tr>
     </thead>
+
+    <tfoot>
+        <tr>
+          <th scope="row">Total de Habitantes</th>
+          <td class="num"><strong>210.147.125</strong></td>
+        </tr>
+      </tfoot>
 
       <tbody>
         <tr>
@@ -92,12 +109,20 @@
           <td class="num">8.690.745</td>
         </tr>
         <tr>
-          <td>Amazonas</td>
-          <td class="num">4.269.995</td>
+          <td>Santa Catarina</td>
+          <td class="num">7.252.502</td>
+        </tr>
+         <tr>
+          <td>Maranhão</td>
+          <td class="num">7.153.262</td>
         </tr>
         <tr>
           <td>Goiás</td>
           <td class="num">3.567.234</td>
+        </tr>
+        <tr>
+          <td>Amazonas</td>
+          <td class="num">4.269.995</td>
         </tr>
         <tr>
           <td>Espírito Santo</td>
@@ -111,21 +136,41 @@
           <td>Rio Grande do Norte</td>
           <td class="num">3.534.165</td>
         </tr>
-        <tr>
-          <td>Maranhão</td>
-          <td class="num">7.153.262</td>
-        </tr>
+       <tr>
+        <td>Mato Grosso</td>
+        <td class="num">3.567.234</td>
+       </tr>
+       <tr>
+        <td>Alagoas</td>
+        <td class="num">3.351.543</td>
+       </tr>
+       <tr>
+        <td>Piauí</td>
+        <td class="num">3.281.480</td>
+       </tr>
         <tr>
           <td>Piauí</td>
           <td class="num">3.281.480</td>
         </tr>
         <tr>
-          <td>Alagoas</td>
-          <td class="num">3.351.543</td>
-        </tr>
-        <tr>
           <td>Distrito Federal</td>
           <td class="num">3.094.325</td>
+        </tr>
+        <tr>
+          <td>Mato Grosso do Sul</td>
+          <td class="num">2.778.986</td>
+        </tr>
+        <tr>
+          <td>Sergipe</td>
+          <td class="num">2.298.696</td>
+        </tr>
+         <tr>
+          <td>Rondônia</td>
+          <td class="num">1.815.278</td>
+        </tr>
+         <tr>
+          <td>Tocantins</td>
+          <td class="num">1.572.866</td>
         </tr>
         <tr>
           <td>Acre</td>
@@ -136,28 +181,10 @@
           <td class="num" >861.773</td>
         </tr>
         <tr>
-          <td>Rondônia</td>
-          <td class="num">1.815.278</td>
-        </tr>
-        <tr>
           <td>Roraima</td>
           <td class="num">631.181</td>
         </tr>
-        <tr>
-          <td>Tocantins</td>
-          <td class="num">1.572.866</td>
-        </tr>
-        <tr>
-          <td></td>
-        </tr>
-
       </tbody>
-      <tfoot>
-        <tr>
-          <th>Total de Habitantes</th>
-          <td>0000</td>
-        </tr>
-      </tfoot>
    </table>
 </body>
 </html>

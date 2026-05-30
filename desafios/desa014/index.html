@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela Escola</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #a0a0a0;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        /* Cabeçalho principal */
+        .header-main {
+            background-color: #101c33;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        /* Subcabeçalho de Notas */
+        .header-notes {
+            background-color: #101c33;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        /* Linhas de Média Geral (Exatas / Humanas) */
+        .row-media {
+            background-color: #6484b4;
+            color: white;
+            font-weight: bold;
+        }
+        /* Células centralizadas (Notas e Médias) */
+        .text-center {
+            text-align: center;
+        }
+        /* Coluna de Áreas (Exatas / Humanas) */
+        .area-cell {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #f9f9f9;
+        }
+    </style>
+
+</head>
+<body>
+
+<table>
+    <thead>
+        <!-- Linha 1 do Cabeçalho -->
+        <tr>
+            <th class="header-main" rowspan="2">Área</th>
+            <th class="header-main" rowspan="2">Disciplinas</th>
+            <th class="header-main" colspan="2">Notas</th>
+            <th class="header-main" rowspan="2">Média</th>
+        </tr>
+        <!-- Linha 2 do Cabeçalho -->
+        <tr>
+            <th class="header-notes">Nota 1</th>
+            <th class="header-notes">Nota 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Bloco de Exatas -->
+        <tr>
+            <td class="area-cell" rowspan="4">Exatas</td>
+            <td>Matemática</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <tr>
+            <td>Física</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <tr>
+            <td>Química</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <tr>
+            <td>Biologia</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <!-- Linha de Média de Exatas -->
+        <tr class="row-media">
+            <td colspan="4">Média de Exatas</td>
+            <td class="text-center">0.0</td>
+        </tr>
+
+        <!-- Bloco de Humanas -->
+        <tr>
+            <td class="area-cell" rowspan="2">Humanas</td>
+            <td>História</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <tr>
+            <td>Geografia</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+            <td class="text-center">0.0</td>
+        </tr>
+        <!-- Linha de Média de Humanas -->
+        <tr class="row-media">
+            <td colspan="4">Média de Humanas</td>
+            <td class="text-center">0.0</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</body>
+</html>

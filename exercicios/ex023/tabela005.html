@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercicio de Tabela</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      width: 500px;
+      border-collapse: collapse;
+      
+    }
+    caption {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+     
+    }
+
+    .destaque {
+      background-color: #65f008;
+    }
+    col.cnome{
+      background-color:  #65f008;
+    }
+
+    col.cgrupo {
+       background-color: #f2f207;
+     
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <colgroup>
+    <col class="cnome">
+    <col class="cgrupo" span="2">
+    <col class="cprofissao">
+    </colgroup>
+    <caption>Cadastro</caption>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Sexo</th>
+      <th scope="col">Idade</th>
+      <th scope="col">Profissão</th>
+    </tr>
+    <tr>
+      <td> Ana Maria</td>
+      <td>Feminino</td>
+      <td>30</td>
+      <td>Engenheira</td>
+    </tr>
+    <tr>
+      <td>João</td>
+      <td>Masculino</td>
+      <td>25</td>
+      <td>Designer</td> 
+    </tr>
+    <tr>
+      <td>Ana</td>
+      <td>Feminino</td>
+      <td>28</td>
+      <td>Professora</td>
+    </tr>
+    <tr>
+      <td>Pedro</td>
+      <td>Masculino</td>
+      <td>35</td>
+      <td>Médico</td> 
+    </tr>
+    <tr>
+      <td>Carla</td>
+      <td>Feminino</td>
+      <td>22</td>
+      <td>Estudante</td>
+    </tr>
+      <tr>
+      <td>Lucas</td>
+      <td>Masculino</td>
+      <td>27</td>
+      <td>Programador</td>
+    </tr>
+  </table>
+</body>
+</html>

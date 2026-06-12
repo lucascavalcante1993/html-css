@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermercado - Sistema de Compras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .secao {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .produto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-produto {
+            flex: 1;
+        }
+
+        .nome-produto {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .preco-produto {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        button.remover {
+            background: #e74c3c;
+        }
+
+        button.remover:hover {
+            background: #c0392b;
+        }
+
+        .item-carrinho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .quantidade-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtotal {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .resumo {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 2px solid #667eea;
+        }
+
+        .linha-resumo {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .linha-resumo:last-child {
+            border-bottom: none;
+        }
+
+        .total-final {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #764ba2;
+            text-align: right;
+        }
+
+        .vazio {
+            color: #999;
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            margin-top: 10px;
+            background: #27ae60;
+        }
+
+        .btn-finalizar:hover {
+            background: #229954;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🛒 Supermercado - Sistema de Compras</h1>
+
+    <div class="container">
+        <!-- PRODUTOS DISPONÍVEIS -->
+        <div class="secao">
+            <h2>📦 Produtos Disponíveis</h2>
+            <div id="listaProdutos"></div>
+        </div>
+
+        <!-- CARRINHO DE COMPRAS -->
+        <div class="secao">
+            <h2>🛒 Seu Carrinho</h2>
+            <div id="carrinho"></div>
+            <div id="resumoCarrinho"></div>
+        </div>
+    </div>
+
+    <script>
+        // Base de dados de produtos
+        const produtos = [
+            { id: 1, nome: 'Maçã', preco: 5.50, categoria: 'Frutas' },
+            { id: 2, nome: 'Leite', preco: 4.20, categoria: 'Laticínios' },
+            { id: 3, nome: 'Pão Francês', preco: 8.50, categoria: 'Padaria' },
+            { id: 4, nome: 'Banana', preco: 3.90, categoria: 'Frutas' },
+            { id: 5, nome: 'Arroz (kg)', preco: 15.00, categoria: 'Secos' },
+            { id: 6, nome: 'Feijão (kg)', preco: 12.50, categoria: 'Secos' },
+            { id: 7, nome: 'Cenoura (kg)', preco: 6.80, categoria: 'Verduras' },
+            { id: 8, nome: 'Ovos (dúzia)', preco: 14.90, categoria: 'Laticínios' }
+        ];
+
+        let carrinhoCompras = [];
+
+        // Renderizar lista de produtos
+        function renderizarProdutos() {
+            const container = document.getElementById('listaProdutos');
+            container.innerHTML = produtos.map(p => `
+                <div class="produto">
+                    <div class="info-produto">
+                        <div class="nome-produto">${p.nome}</div>
+                        <div class="preco-produto">R$ ${p.preco.toFixed(2)}</div>
+                    </div>
+                    <button onclick="adicionarAoCarrinho(${p.id})">+ Adicionar</button>
+                </div>
+            `).join('');
+        }
+
+        // Adicionar produto ao carrinho
+        function adicionarAoCarrinho(idProduto) {
+            const produto = produtos.find(p => p.id === idProduto);
+            const itemCarrinho = carrinhoCompras.find(item => item.id === idProduto);
+
+            if (itemCarrinho) {
+                itemCarrinho.quantidade++;
+            } else {
+                carrinhoCompras.push({
+                    ...produto,
+                    quantidade: 1
+                });
+            }
+
+            renderizarCarrinho();
+            renderizarResumo();
+        }
+
+        // Remover produto do carrinho
+        function removerDoCarrinho(idProduto) {
+            carrinhoCompras = carrinhoCompras.filter(item => item.id !== idProduto);
+            renderizarCarrinho();
+            renderizarResumo();
+        }
+
+        // Atualizar quantidade
+        function atualizarQuantidade(idProduto, novaQuantidade) {
+            const item = carrinhoCompras.find(i => i.id === idProduto);
+            if (item) {
+                if (novaQuantidade <= 0) {
+                    removerDoCarrinho(idProduto);
+                } else {
+                    item.quantidade = novaQuantidade;
+                    renderizarCarrinho();
+                    renderizarResumo();
+                }
+            }
+        }
+
+        // Renderizar carrinho
+        function renderizarCarrinho() {
+            const container = document.getElementById('carrinho');
+
+            if (carrinhoCompras.length === 0) {
+                container.innerHTML = '<div class="vazio">Carrinho vazio</div>';
+                return;
+            }
+
+            container.innerHTML = carrinhoCompras.map(item => `
+                <div class="item-carrinho">
+                    <div class="info-produto">
+                        <div class="nome-produto">${item.nome}</div>
+                        <div class="preco-produto">R$ ${item.preco.toFixed(2)}</div>
+                    </div>
+                    <div class="quantidade-info">
+                        <input type="number" value="${item.quantidade}" 
+                               min="1" onchange="atualizarQuantidade(${item.id}, this.value)">
+                        <button class="remover" onclick="removerDoCarrinho(${item.id})">Remover</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Calcular e renderizar resumo
+        function renderizarResumo() {
+            const container = document.getElementById('resumoCarrinho');
+
+            if (carrinhoCompras.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const subtotal = carrinhoCompras.reduce((total, item) => 
+                total + (item.preco * item.quantidade), 0
+            );
+
+            const desconto = subtotal * 0.05; // 5% de desconto
+            const total = subtotal - desconto;
+
+            container.innerHTML = `
+                <div class="resumo">
+                    <div class="linha-resumo">
+                        <span>Subtotal:</span>
+                        <span>R$ ${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="linha-resumo">
+                        <span>Desconto (5%):</span>
+                        <span>-R$ ${desconto.toFixed(2)}</span>
+                    </div>
+                    <div class="linha-resumo">
+                        <span class="total-final">TOTAL:</span>
+                        <span class="total-final">R$ ${total.toFixed(2)}</span>
+                    </div>
+                    <button class="btn-finalizar" onclick="finalizarCompra()">
+                        ✓ Finalizar Compra
+                    </button>
+                </div>
+            `;
+        }
+
+        // Finalizar compra
+        function finalizarCompra() {
+            if (carrinhoCompras.length === 0) {
+                alert('Adicione produtos ao carrinho!');
+                return;
+            }
+
+            const total = carrinhoCompras.reduce((acc, item) => 
+                acc + (item.preco * item.quantidade), 0
+            ) * 0.95;
+
+            alert(`✓ Compra finalizada!\nTotal: R$ ${total.toFixed(2)}\n\nObrigado por comprar conosco! 🎉`);
+            carrinhoCompras = [];
+            renderizarCarrinho();
+            renderizarResumo();
+        }
+
+        // Inicializar
+        renderizarProdutos();
+        renderizarCarrinho();
+    </script>
+</body>
+</html>
